@@ -56,10 +56,10 @@ namespace DBLabs
             DataTable studentTypeDB = new DataTable();
             DataTable phoneTypeDB = new DataTable();
 
-            SqlDataAdapter da = dbconn.GetStuff("SELECT * FROM StudentTyp");
+            SqlDataAdapter da = dbconn.GetSQLDataAdapter("SELECT * FROM StudentTyp");
             da.Fill(studentTypeDB);
 
-            da = dbconn.GetStuff("SELECT * FROM ContactTypes");
+            da = dbconn.GetSQLDataAdapter("SELECT * FROM ContactTypes");
             da.Fill(phoneTypeDB);
 
             StudentTypeCombobox.DataSource = studentTypeDB;
@@ -76,7 +76,8 @@ namespace DBLabs
              * Example: Emptying textboxes and gridviews
              * 
              */
-
+            phoneNumbers.Clear();
+            phoneTypes.Clear();
             StudentidTextbox.Text = "";
             FirstnameTextbox.Text = "";
             LastnameTextbox.Text = "";
@@ -93,7 +94,7 @@ namespace DBLabs
 
         private void AddNumberButton_Click(object sender, EventArgs e)
         {
-            if (PhoneNumberTextbox.Text.Length > 0)
+            if (PhoneNumberTextbox.Text.Length > 0) // validate better
             {
                 AddedPhoneNumbers_Readonly.Text += $"{PhoneNumberTextbox.Text} - " + PhoneTypeCombobox.Text;
                 AddedPhoneNumbers_Readonly.AppendText(Environment.NewLine);
@@ -127,7 +128,6 @@ namespace DBLabs
 
             if (exitCodeStudent == 1)
             {
-                ResetAddStudentControl();
                 RegisterStatusTextbox.Text += "1 row updated...";
                 RegisterStatusTextbox.AppendText(Environment.NewLine);
                 RegisterStatusTextbox.Text += $"The new student was successfully added to the database!";
@@ -138,6 +138,8 @@ namespace DBLabs
                 RegisterStatusTextbox.Text += "0 rows updated...";
                 RegisterStatusTextbox.AppendText(Environment.NewLine);
                 RegisterStatusTextbox.Text += $"An error prevented the new student from being added to the database.";
+                RegisterStatusTextbox.AppendText(Environment.NewLine);
+                RegisterStatusTextbox.Text += $"Because of this error no phonenumbers where added.";
                 RegisterStatusTextbox.AppendText(Environment.NewLine);
             }
 
@@ -156,8 +158,7 @@ namespace DBLabs
                         RegisterStatusTextbox.AppendText(Environment.NewLine);
                     }
                 }
-                phoneNumbers.Clear();
-                phoneTypes.Clear();
+                ResetAddStudentControl();
             }
         }
 
