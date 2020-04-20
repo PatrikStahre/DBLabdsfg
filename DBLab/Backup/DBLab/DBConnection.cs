@@ -16,6 +16,7 @@ namespace DBLabs
         // */
         public DBConnection()
         {
+            //HEJHÅÅÅÅÅ HEJHÅÅÅÅÅ hejhå hejhåå klar med LAB2
             
         }
 
