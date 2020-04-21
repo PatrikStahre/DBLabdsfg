@@ -61,6 +61,8 @@ namespace DBLabs
             SqlDataAdapter da = new SqlDataAdapter(myQuery, myConnection);
             myConnection.Close();
             return da;
+
+            //ändring
         }
 
         //Implement later...
