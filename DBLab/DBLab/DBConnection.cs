@@ -55,14 +55,13 @@ namespace DBLabs
         // Here you need to implement your own methods that call the stored procedures 
         // addStudent and addStudentPhoneNo
 
-        public SqlDataAdapter GetSQLDataAdapter(string myQuery)
+
+        public void FillDataTable(string myQuery, DataTable dt)
         {
             myConnection.Open();
             SqlDataAdapter da = new SqlDataAdapter(myQuery, myConnection);
+            da.Fill(dt);
             myConnection.Close();
-            return da;
-
-            //ändring
         }
 
         //Implement later...
