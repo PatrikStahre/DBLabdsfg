@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -56,18 +55,15 @@ namespace DBLabs
             DataTable studentTypeDB = new DataTable();
             DataTable phoneTypeDB = new DataTable();
 
-            SqlDataAdapter da = dbconn.GetStuff("SELECT * FROM StudentTyp");
-            da.Fill(studentTypeDB);
-
-            da = dbconn.GetStuff("SELECT * FROM ContactTypes");
-            da.Fill(phoneTypeDB);
+            dbconn.FillDataTable("SELECT * FROM StudentTyp", studentTypeDB);
+            dbconn.FillDataTable("SELECT * FROM ContactTypes", phoneTypeDB);
 
             StudentTypeCombobox.DataSource = studentTypeDB;
             PhoneTypeCombobox.DataSource = phoneTypeDB;
             StudentTypeCombobox.DisplayMember = "Typ";
             PhoneTypeCombobox.DisplayMember = "ContactType";
         }
-        public void ResetAddStudentControl()
+        public void ResetAddStudentControl(bool clearLog = true)
         {
             /*
              * This function contains all code that needs to be executed when the control is reloaded
@@ -76,24 +72,27 @@ namespace DBLabs
              * Example: Emptying textboxes and gridviews
              * 
              */
+            phoneNumbers.Clear();
+            phoneTypes.Clear();
+            StudentidTextbox.ResetText();
+            FirstnameTextbox.ResetText();
+            LastnameTextbox.ResetText();
+            GenderTextbox.ResetText();
+            StreetadressTextbox.ResetText();
+            ZipcodeTextbox.ResetText();
+            CityTextbox.ResetText();
+            CountryTextbox.ResetText();
+            BirthdateDatepicker.Value = BirthdateDatepicker.MaxDate;
+            PhoneNumberTextbox.ResetText();
+            AddedPhoneNumbers_Readonly.ResetText();
 
-            StudentidTextbox.Text = "";
-            FirstnameTextbox.Text = "";
-            LastnameTextbox.Text = "";
-            GenderTextbox.Text = "";
-            StreetadressTextbox.Text = "";
-            ZipcodeTextbox.Text = "";
-            CityTextbox.Text = "";
-            CountryTextbox.Text = "";
-            BirthdateDatepicker.Value = DateTime.Now;
-            PhoneNumberTextbox.Text = "";
-            AddedPhoneNumbers_Readonly.Text = "";
-            RegisterStatusTextbox.Text = "";
+            if (clearLog)
+                RegisterStatusTextbox.ResetText();
         }
 
         private void AddNumberButton_Click(object sender, EventArgs e)
         {
-            if (PhoneNumberTextbox.Text.Length > 0)
+            if (PhoneNumberTextbox.Text.Length > 0) // validate better
             {
                 AddedPhoneNumbers_Readonly.Text += $"{PhoneNumberTextbox.Text} - " + PhoneTypeCombobox.Text;
                 AddedPhoneNumbers_Readonly.AppendText(Environment.NewLine);
@@ -125,29 +124,35 @@ namespace DBLabs
             phoneTypes
             );
 
-            if (exitCodeStudent == 1)
-            {
-                ResetAddStudentControl();
-                RegisterStatusTextbox.Text += "1 row updated...";
-                RegisterStatusTextbox.AppendText(Environment.NewLine);
-                RegisterStatusTextbox.Text += $"The new student was successfully added to the database!";
-                RegisterStatusTextbox.AppendText(Environment.NewLine);
-            }
-            else if (exitCodeStudent == -1)
+            //if (exitCodeStudent == 1)
+            //{
+            //    RegisterStatusTextbox.Text += "1 row updated...";
+            //    RegisterStatusTextbox.AppendText(Environment.NewLine);
+            //    RegisterStatusTextbox.Text += $"The new student: {StudentidTextbox.Text} ({FirstnameTextbox.Text} {LastnameTextbox.Text}) was successfully added to the database!";
+            //    RegisterStatusTextbox.AppendText(Environment.NewLine);
+            //}
+
+            if (exitCodeStudent == -1)
             {
                 RegisterStatusTextbox.Text += "0 rows updated...";
                 RegisterStatusTextbox.AppendText(Environment.NewLine);
-                RegisterStatusTextbox.Text += $"An error prevented the new student from being added to the database.";
+                RegisterStatusTextbox.Text += $"An error prevented the new student: {StudentidTextbox.Text} ({FirstnameTextbox.Text} {LastnameTextbox.Text}) from being added to the database.";
+                RegisterStatusTextbox.AppendText(Environment.NewLine);
+                RegisterStatusTextbox.Text += $"Because of this error no phonenumbers where added.";
                 RegisterStatusTextbox.AppendText(Environment.NewLine);
             }
 
-            if (exitCodeStudent == 1)
+            else if (exitCodeStudent == 1)
             {
+                RegisterStatusTextbox.Text += "1 row updated...";
+                RegisterStatusTextbox.AppendText(Environment.NewLine);
+                RegisterStatusTextbox.Text += $"The new student: {StudentidTextbox.Text} ({FirstnameTextbox.Text} {LastnameTextbox.Text}) was successfully added to the database!";
+                RegisterStatusTextbox.AppendText(Environment.NewLine);
                 for (int i = 0; i < exitCodePhoneNumbers.Length; i++)
                 {
                     if (exitCodePhoneNumbers[i] == 1)
                     {
-                        RegisterStatusTextbox.Text += $"Phone number {phoneNumbers[i]} added to the database.";
+                        RegisterStatusTextbox.Text += $"Phone number {phoneNumbers[i]} - {phoneTypes[i]} added to the database.";
                         RegisterStatusTextbox.AppendText(Environment.NewLine);
                     }
                     else if (exitCodePhoneNumbers[i] == -1)
@@ -156,8 +161,7 @@ namespace DBLabs
                         RegisterStatusTextbox.AppendText(Environment.NewLine);
                     }
                 }
-                phoneNumbers.Clear();
-                phoneTypes.Clear();
+                ResetAddStudentControl(false);
             }
         }
 
