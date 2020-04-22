@@ -10,14 +10,13 @@ namespace DBLabs
 {
     public class DBConnection : DBLabsDLL.DBConnectionBase
     {
-        public SqlConnection myConnection;
-
+       
         ///*
         // * The constructor
         // */
         public DBConnection()
         {
-
+            
         }
 
         /*
@@ -31,84 +30,25 @@ namespace DBLabs
          *              true    successful login
          *              false   Error
          */
-
         public override bool login(string username, string password)
         {
-            //to lazy to enter login info every time...
-            username = "DVA234_2020_G7";
-            password = "DVA234_7";
-
-            string connectionstring = "Data Source=www4.idt.mdh.se;" + "Initial Catalog=DVA234_2020_G7_db;" + $"User Id={username};" + $"Password={password};";
-            myConnection = new SqlConnection(connectionstring);
-
-            if (myConnection == null)
-                return false;
-
             return true;
         }
-        /*
-         --------------------------------------------------------------------------------------------
-         IMPLEMENTATION TO BE USED IN LAB 2. 
-         --------------------------------------------------------------------------------------------
-        */
+/*
+ --------------------------------------------------------------------------------------------
+ IMPLEMENTATION TO BE USED IN LAB 2. 
+ --------------------------------------------------------------------------------------------
+*/
 
-        // Here you need to implement your own methods that call the stored procedures 
-        // addStudent and addStudentPhoneNo
+    // Here you need to implement your own methods that call the stored procedures 
+    // addStudent and addStudentPhoneNo
 
-        public void FillDataTable(string myQuery, DataTable dt)
-        {
-            myConnection.Open();
-            SqlDataAdapter da = new SqlDataAdapter(myQuery, myConnection);
-            da.Fill(dt);
-            myConnection.Close();
-        }
 
-        //Implement later...
-        public int addStudentToDB(string studentID, string firstname, string lastname, string gender,
-            string streetadress, string zidcode, string city, string country, string birthdate, string Studenttype)
-        {
-            myConnection.Open();
-            SqlDataAdapter da = new SqlDataAdapter("addStudent_p", myConnection);
-            da.SelectCommand.CommandType = CommandType.StoredProcedure;
-            da.SelectCommand.Parameters.Add("StudentID", SqlDbType.NChar, (10)).Value = studentID;
-            da.SelectCommand.Parameters.Add("FirstName", SqlDbType.NVarChar, (50)).Value = firstname;
-            da.SelectCommand.Parameters.Add("LastName", SqlDbType.NVarChar, (50)).Value = lastname;
-            da.SelectCommand.Parameters.Add("Gender", SqlDbType.NVarChar, (6)).Value = gender;
-            da.SelectCommand.Parameters.Add("StreetAdress", SqlDbType.NVarChar, (50)).Value = streetadress;
-            da.SelectCommand.Parameters.Add("ZipCode", SqlDbType.NChar, (10)).Value = zidcode;
-            da.SelectCommand.Parameters.Add("City", SqlDbType.NVarChar, (50)).Value = city;
-            da.SelectCommand.Parameters.Add("Country", SqlDbType.NVarChar, (50)).Value = country;
-            da.SelectCommand.Parameters.Add("Birthdate", SqlDbType.Date).Value = birthdate;
-            da.SelectCommand.Parameters.Add("StudentType", SqlDbType.NVarChar, (20)).Value = Studenttype;
-            int exitCode = da.SelectCommand.ExecuteNonQuery();
-            myConnection.Close();
-
-            return exitCode;
-        }
-
-        public int[] addStudentPhoneNoToDB(string StudentID, List<string> phoneNumbers, List<string> PhoneTypes)
-        {
-            int[] exitCodes = new int[phoneNumbers.Count];
-
-            myConnection.Open();
-            for (int i = 0; i < phoneNumbers.Count; i++)
-            {
-                SqlDataAdapter da = new SqlDataAdapter("addStudentPhoneNo_p", myConnection);
-                da.SelectCommand.CommandType = CommandType.StoredProcedure;
-                da.SelectCommand.Parameters.Add("StudentID", SqlDbType.NVarChar, (10)).Value = StudentID;
-                da.SelectCommand.Parameters.Add("PhoneType", SqlDbType.NVarChar, (30)).Value = PhoneTypes[i];
-                da.SelectCommand.Parameters.Add("Number", SqlDbType.NVarChar, (30)).Value = phoneNumbers[i];
-                exitCodes[i] = da.SelectCommand.ExecuteNonQuery();
-            }
-            myConnection.Close();
-            return exitCodes;
-        }
-
-        /*
-         --------------------------------------------------------------------------------------------
-         STUB IMPLEMENTATIONS TO BE USED IN LAB 3. 
-         --------------------------------------------------------------------------------------------
-        */
+/*
+ --------------------------------------------------------------------------------------------
+ STUB IMPLEMENTATIONS TO BE USED IN LAB 3. 
+ --------------------------------------------------------------------------------------------
+*/
 
 
         /********************************************************************************************
