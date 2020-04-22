@@ -52,8 +52,8 @@ namespace DBLabs
 
             ResetAddStudentControl();
 
-            DataTable studentTypeDB = dbconn.LoadStudentTypes();
-            DataTable phoneTypeDB = dbconn.LoadPhoneTypes();
+            DataTable studentTypeDB = dbconn.LoadTypes("StudentType");
+            DataTable phoneTypeDB = dbconn.LoadTypes("ContactTypes");
 
             StudentTypeCombobox.DataSource = studentTypeDB;
             PhoneTypeCombobox.DataSource = phoneTypeDB;
