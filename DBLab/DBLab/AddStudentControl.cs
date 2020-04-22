@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -27,7 +26,6 @@ namespace DBLabs
             phoneNumbers = new List<string>();
             phoneTypes = new List<string>();
             InitializeComponent();
-            //nya grejer, github test
         }
 
         public void AddStudentControlSettings(ref DBConnection dbconn)
@@ -57,11 +55,8 @@ namespace DBLabs
             DataTable studentTypeDB = new DataTable();
             DataTable phoneTypeDB = new DataTable();
 
-            SqlDataAdapter da = dbconn.GetSQLDataAdapter("SELECT * FROM StudentTyp");
-            da.Fill(studentTypeDB);
-
-            da = dbconn.GetSQLDataAdapter("SELECT * FROM ContactTypes");
-            da.Fill(phoneTypeDB);
+            dbconn.FillDataTable("SELECT * FROM StudentTyp", studentTypeDB);
+            dbconn.FillDataTable("SELECT * FROM ContactTypes", phoneTypeDB);
 
             StudentTypeCombobox.DataSource = studentTypeDB;
             PhoneTypeCombobox.DataSource = phoneTypeDB;
@@ -79,21 +74,20 @@ namespace DBLabs
              */
             phoneNumbers.Clear();
             phoneTypes.Clear();
-            StudentidTextbox.Text = "";
-            FirstnameTextbox.Text = "";
-            LastnameTextbox.Text = "";
-            GenderTextbox.Text = "";
-            StreetadressTextbox.Text = "";
-            ZipcodeTextbox.Text = "";
-            CityTextbox.Text = "";
-            CountryTextbox.Text = "";
-            BirthdateDatepicker.Value = DateTime.Now;
-            PhoneNumberTextbox.Text = "";
-            AddedPhoneNumbers_Readonly.Text = "";
+            StudentidTextbox.ResetText();
+            FirstnameTextbox.ResetText();
+            LastnameTextbox.ResetText();
+            GenderTextbox.ResetText();
+            StreetadressTextbox.ResetText();
+            ZipcodeTextbox.ResetText();
+            CityTextbox.ResetText();
+            CountryTextbox.ResetText();
+            BirthdateDatepicker.Value = BirthdateDatepicker.MaxDate;
+            PhoneNumberTextbox.ResetText();
+            AddedPhoneNumbers_Readonly.ResetText();
 
             if (clearLog)
-                RegisterStatusTextbox.Text = "";
-
+                RegisterStatusTextbox.ResetText();
         }
 
         private void AddNumberButton_Click(object sender, EventArgs e)
@@ -130,14 +124,15 @@ namespace DBLabs
             phoneTypes
             );
 
-            if (exitCodeStudent == 1)
-            {
-                RegisterStatusTextbox.Text += "1 row updated...";
-                RegisterStatusTextbox.AppendText(Environment.NewLine);
-                RegisterStatusTextbox.Text += $"The new student: {StudentidTextbox.Text} ({FirstnameTextbox.Text} {LastnameTextbox.Text}) was successfully added to the database!";
-                RegisterStatusTextbox.AppendText(Environment.NewLine);
-            }
-            else if (exitCodeStudent == -1)
+            //if (exitCodeStudent == 1)
+            //{
+            //    RegisterStatusTextbox.Text += "1 row updated...";
+            //    RegisterStatusTextbox.AppendText(Environment.NewLine);
+            //    RegisterStatusTextbox.Text += $"The new student: {StudentidTextbox.Text} ({FirstnameTextbox.Text} {LastnameTextbox.Text}) was successfully added to the database!";
+            //    RegisterStatusTextbox.AppendText(Environment.NewLine);
+            //}
+
+            if (exitCodeStudent == -1)
             {
                 RegisterStatusTextbox.Text += "0 rows updated...";
                 RegisterStatusTextbox.AppendText(Environment.NewLine);
@@ -147,8 +142,12 @@ namespace DBLabs
                 RegisterStatusTextbox.AppendText(Environment.NewLine);
             }
 
-            if (exitCodeStudent == 1)
+            else if (exitCodeStudent == 1)
             {
+                RegisterStatusTextbox.Text += "1 row updated...";
+                RegisterStatusTextbox.AppendText(Environment.NewLine);
+                RegisterStatusTextbox.Text += $"The new student: {StudentidTextbox.Text} ({FirstnameTextbox.Text} {LastnameTextbox.Text}) was successfully added to the database!";
+                RegisterStatusTextbox.AppendText(Environment.NewLine);
                 for (int i = 0; i < exitCodePhoneNumbers.Length; i++)
                 {
                     if (exitCodePhoneNumbers[i] == 1)
