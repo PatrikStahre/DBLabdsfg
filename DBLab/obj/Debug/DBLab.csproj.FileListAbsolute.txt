@@ -1,0 +1,12 @@
+C:\Studier\MDH\DVA234\Lab 2\DBCourseLabFiles-v1_3\DBLab\DBLab\bin\Debug\DBLab.exe
+C:\Studier\MDH\DVA234\Lab 2\DBCourseLabFiles-v1_3\DBLab\DBLab\bin\Debug\DBLab.pdb
+C:\Studier\MDH\DVA234\Lab 2\DBCourseLabFiles-v1_3\DBLab\DBLab\bin\Debug\DBLabControllers.dll
+C:\Studier\MDH\DVA234\Lab 2\DBCourseLabFiles-v1_3\DBLab\DBLab\obj\Debug\DBLab.csprojAssemblyReference.cache
+C:\Studier\MDH\DVA234\Lab 2\DBCourseLabFiles-v1_3\DBLab\DBLab\obj\Debug\DBLabs.AddStudentControl.resources
+C:\Studier\MDH\DVA234\Lab 2\DBCourseLabFiles-v1_3\DBLab\DBLab\obj\Debug\DBLabs.ApplicationForm.resources
+C:\Studier\MDH\DVA234\Lab 2\DBCourseLabFiles-v1_3\DBLab\DBLab\obj\Debug\DBLab.Properties.Resources.resources
+C:\Studier\MDH\DVA234\Lab 2\DBCourseLabFiles-v1_3\DBLab\DBLab\obj\Debug\DBLab.csproj.GenerateResource.cache
+C:\Studier\MDH\DVA234\Lab 2\DBCourseLabFiles-v1_3\DBLab\DBLab\obj\Debug\DBLab.csproj.CoreCompileInputs.cache
+C:\Studier\MDH\DVA234\Lab 2\DBCourseLabFiles-v1_3\DBLab\DBLab\obj\Debug\DBLab.csproj.CopyComplete
+C:\Studier\MDH\DVA234\Lab 2\DBCourseLabFiles-v1_3\DBLab\DBLab\obj\Debug\DBLab.exe
+C:\Studier\MDH\DVA234\Lab 2\DBCourseLabFiles-v1_3\DBLab\DBLab\obj\Debug\DBLab.pdb

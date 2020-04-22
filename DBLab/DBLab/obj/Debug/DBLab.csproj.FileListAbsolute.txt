@@ -1,0 +1,6 @@
+C:\Users\LealQ\OneDrive - Mälardalens högskola\Skolan\INDEK år 3\VT20 Termin 6\Databaser\Labbar\LAB2\DBLab (4)\DBLab\DBLab\DBLab\obj\Debug\DBLab.csprojAssemblyReference.cache
+C:\Users\LealQ\OneDrive - Mälardalens högskola\Skolan\INDEK år 3\VT20 Termin 6\Databaser\Labbar\LAB2\DBLab (4)\DBLab\DBLab\DBLab\obj\Debug\DBLabs.AddStudentControl.resources
+C:\Users\LealQ\OneDrive - Mälardalens högskola\Skolan\INDEK år 3\VT20 Termin 6\Databaser\Labbar\LAB2\DBLab (4)\DBLab\DBLab\DBLab\obj\Debug\DBLabs.ApplicationForm.resources
+C:\Users\LealQ\OneDrive - Mälardalens högskola\Skolan\INDEK år 3\VT20 Termin 6\Databaser\Labbar\LAB2\DBLab (4)\DBLab\DBLab\DBLab\obj\Debug\DBLab.Properties.Resources.resources
+C:\Users\LealQ\OneDrive - Mälardalens högskola\Skolan\INDEK år 3\VT20 Termin 6\Databaser\Labbar\LAB2\DBLab (4)\DBLab\DBLab\DBLab\obj\Debug\DBLab.csproj.GenerateResource.cache
+C:\Users\LealQ\OneDrive - Mälardalens högskola\Skolan\INDEK år 3\VT20 Termin 6\Databaser\Labbar\LAB2\DBLab (4)\DBLab\DBLab\DBLab\obj\Debug\DBLab.csproj.CoreCompileInputs.cache

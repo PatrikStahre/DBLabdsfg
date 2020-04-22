@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.AddStudentGB = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.RegisterStatusTextbox = new System.Windows.Forms.TextBox();
+            this.ClearAddedPhoneNumbersButton = new System.Windows.Forms.Button();
             this.RegisterNewStudentButton = new System.Windows.Forms.Button();
             this.AddNumberButton = new System.Windows.Forms.Button();
             this.AddedPhoneNumbers_Readonly = new System.Windows.Forms.TextBox();
@@ -57,9 +60,6 @@
             this.LastnameTextbox = new System.Windows.Forms.TextBox();
             this.FirstnameTextbox = new System.Windows.Forms.TextBox();
             this.StudentidTextbox = new System.Windows.Forms.TextBox();
-            this.ClearAddedPhoneNumbersButton = new System.Windows.Forms.Button();
-            this.RegisterStatusTextbox = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.AddStudentGB.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,9 +103,38 @@
             this.AddStudentGB.TabStop = false;
             this.AddStudentGB.Text = "Add Student";
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(455, 330);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(25, 13);
+            this.label14.TabIndex = 30;
+            this.label14.Text = "Log";
+            // 
+            // RegisterStatusTextbox
+            // 
+            this.RegisterStatusTextbox.Location = new System.Drawing.Point(486, 330);
+            this.RegisterStatusTextbox.Multiline = true;
+            this.RegisterStatusTextbox.Name = "RegisterStatusTextbox";
+            this.RegisterStatusTextbox.ReadOnly = true;
+            this.RegisterStatusTextbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.RegisterStatusTextbox.Size = new System.Drawing.Size(294, 153);
+            this.RegisterStatusTextbox.TabIndex = 29;
+            // 
+            // ClearAddedPhoneNumbersButton
+            // 
+            this.ClearAddedPhoneNumbersButton.Location = new System.Drawing.Point(786, 127);
+            this.ClearAddedPhoneNumbersButton.Name = "ClearAddedPhoneNumbersButton";
+            this.ClearAddedPhoneNumbersButton.Size = new System.Drawing.Size(93, 37);
+            this.ClearAddedPhoneNumbersButton.TabIndex = 28;
+            this.ClearAddedPhoneNumbersButton.Text = "Clear phone numbers";
+            this.ClearAddedPhoneNumbersButton.UseVisualStyleBackColor = true;
+            this.ClearAddedPhoneNumbersButton.Click += new System.EventHandler(this.ClearAddedPhoneNumbersButton_Click);
+            // 
             // RegisterNewStudentButton
             // 
-            this.RegisterNewStudentButton.Location = new System.Drawing.Point(166, 397);
+            this.RegisterNewStudentButton.Location = new System.Drawing.Point(486, 240);
             this.RegisterNewStudentButton.Name = "RegisterNewStudentButton";
             this.RegisterNewStudentButton.Size = new System.Drawing.Size(171, 53);
             this.RegisterNewStudentButton.TabIndex = 27;
@@ -115,7 +144,7 @@
             // 
             // AddNumberButton
             // 
-            this.AddNumberButton.Location = new System.Drawing.Point(817, 60);
+            this.AddNumberButton.Location = new System.Drawing.Point(703, 57);
             this.AddNumberButton.Name = "AddNumberButton";
             this.AddNumberButton.Size = new System.Drawing.Size(77, 51);
             this.AddNumberButton.TabIndex = 26;
@@ -125,18 +154,18 @@
             // 
             // AddedPhoneNumbers_Readonly
             // 
-            this.AddedPhoneNumbers_Readonly.Location = new System.Drawing.Point(600, 187);
+            this.AddedPhoneNumbers_Readonly.Location = new System.Drawing.Point(486, 127);
             this.AddedPhoneNumbers_Readonly.Multiline = true;
             this.AddedPhoneNumbers_Readonly.Name = "AddedPhoneNumbers_Readonly";
             this.AddedPhoneNumbers_Readonly.ReadOnly = true;
             this.AddedPhoneNumbers_Readonly.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.AddedPhoneNumbers_Readonly.Size = new System.Drawing.Size(294, 164);
+            this.AddedPhoneNumbers_Readonly.Size = new System.Drawing.Size(294, 103);
             this.AddedPhoneNumbers_Readonly.TabIndex = 25;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(467, 187);
+            this.label13.Location = new System.Drawing.Point(363, 127);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(117, 13);
             this.label13.TabIndex = 24;
@@ -145,7 +174,7 @@
             // PhoneTypeCombobox
             // 
             this.PhoneTypeCombobox.FormattingEnabled = true;
-            this.PhoneTypeCombobox.Location = new System.Drawing.Point(600, 90);
+            this.PhoneTypeCombobox.Location = new System.Drawing.Point(486, 87);
             this.PhoneTypeCombobox.Name = "PhoneTypeCombobox";
             this.PhoneTypeCombobox.Size = new System.Drawing.Size(200, 21);
             this.PhoneTypeCombobox.TabIndex = 23;
@@ -153,7 +182,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(519, 90);
+            this.label12.Location = new System.Drawing.Point(415, 90);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(65, 13);
             this.label12.TabIndex = 22;
@@ -161,7 +190,7 @@
             // 
             // PhoneNumberTextbox
             // 
-            this.PhoneNumberTextbox.Location = new System.Drawing.Point(600, 60);
+            this.PhoneNumberTextbox.Location = new System.Drawing.Point(486, 57);
             this.PhoneNumberTextbox.MaxLength = 16;
             this.PhoneNumberTextbox.Name = "PhoneNumberTextbox";
             this.PhoneNumberTextbox.Size = new System.Drawing.Size(200, 20);
@@ -170,7 +199,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(506, 60);
+            this.label11.Location = new System.Drawing.Point(402, 60);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(78, 13);
             this.label11.TabIndex = 20;
@@ -277,9 +306,12 @@
             // BirthdateDatepicker
             // 
             this.BirthdateDatepicker.Location = new System.Drawing.Point(155, 300);
+            this.BirthdateDatepicker.MaxDate = new System.DateTime(2010, 1, 1, 0, 0, 0, 0);
+            this.BirthdateDatepicker.MinDate = new System.DateTime(1920, 1, 1, 0, 0, 0, 0);
             this.BirthdateDatepicker.Name = "BirthdateDatepicker";
             this.BirthdateDatepicker.Size = new System.Drawing.Size(200, 20);
             this.BirthdateDatepicker.TabIndex = 8;
+            this.BirthdateDatepicker.Value = new System.DateTime(2010, 1, 1, 0, 0, 0, 0);
             // 
             // CountryTextbox
             // 
@@ -337,35 +369,6 @@
             this.StudentidTextbox.Name = "StudentidTextbox";
             this.StudentidTextbox.Size = new System.Drawing.Size(200, 20);
             this.StudentidTextbox.TabIndex = 0;
-            // 
-            // ClearAddedPhoneNumbersButton
-            // 
-            this.ClearAddedPhoneNumbersButton.Location = new System.Drawing.Point(900, 187);
-            this.ClearAddedPhoneNumbersButton.Name = "ClearAddedPhoneNumbersButton";
-            this.ClearAddedPhoneNumbersButton.Size = new System.Drawing.Size(85, 37);
-            this.ClearAddedPhoneNumbersButton.TabIndex = 28;
-            this.ClearAddedPhoneNumbersButton.Text = "Clear";
-            this.ClearAddedPhoneNumbersButton.UseVisualStyleBackColor = true;
-            this.ClearAddedPhoneNumbersButton.Click += new System.EventHandler(this.ClearAddedPhoneNumbersButton_Click);
-            // 
-            // RegisterStatusTextbox
-            // 
-            this.RegisterStatusTextbox.Location = new System.Drawing.Point(600, 376);
-            this.RegisterStatusTextbox.Multiline = true;
-            this.RegisterStatusTextbox.Name = "RegisterStatusTextbox";
-            this.RegisterStatusTextbox.ReadOnly = true;
-            this.RegisterStatusTextbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.RegisterStatusTextbox.Size = new System.Drawing.Size(294, 85);
-            this.RegisterStatusTextbox.TabIndex = 29;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(559, 376);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(25, 13);
-            this.label14.TabIndex = 30;
-            this.label14.Text = "Log";
             // 
             // AddStudentControl
             // 

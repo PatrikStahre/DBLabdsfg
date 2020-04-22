@@ -10,14 +10,13 @@ namespace DBLabs
 {
     public class DBConnection : DBLabsDLL.DBConnectionBase
     {
-        public SqlConnection myConnection;
-
+       
         ///*
         // * The constructor
         // */
         public DBConnection()
         {
-
+            
         }
 
         /*
@@ -31,108 +30,25 @@ namespace DBLabs
          *              true    successful login
          *              false   Error
          */
-
         public override bool login(string username, string password)
         {
-            //We hardcode the login info so we dont have to enter this info everytime we run the program.
-            username = "DVA234_2020_G7";
-            password = "DVA234_7";
-
-            string connectionstring = "Data Source=www4.idt.mdh.se;" + "Initial Catalog=DVA234_2020_G7_db;" + $"User Id={username};" + $"Password={password};";
-            myConnection = new SqlConnection(connectionstring);
-
-            // We try to open the connection. If the state of the connection is "open" we close it and return true. Otherwise we return false.
-            myConnection.Open();
-
-            if (myConnection.State == ConnectionState.Closed)
-                return false;
-
-            else if (myConnection.State == ConnectionState.Open)
-            {
-                myConnection.Close();
-                return true;
-            }
-
-            else // something has gone wrong that we didnt check for...
-                return false;
+            return true;
         }
-        /*
-         --------------------------------------------------------------------------------------------
-         IMPLEMENTATION TO BE USED IN LAB 2. 
-         --------------------------------------------------------------------------------------------
-        */
+/*
+ --------------------------------------------------------------------------------------------
+ IMPLEMENTATION TO BE USED IN LAB 2. 
+ --------------------------------------------------------------------------------------------
+*/
 
-        // Here you need to implement your own methods that call the stored procedures 
-        // addStudent and addStudentPhoneNo
+    // Here you need to implement your own methods that call the stored procedures 
+    // addStudent and addStudentPhoneNo
 
-        // We declare and return the datatable to the method LoadAddStudentControl in AddStudentControl.cs that use the datatables to
-        // populate the comboboxes. 
-        public DataTable LoadTypes(string typ)
-        {
-            DataTable dt = new DataTable();
-            string query = $"SELECT * FROM {typ}";
-            FillDataTable(query, dt);
-            return dt;
-        }
 
-        // Helper method that simply fills the datatables with data it recieves after a query to the database. 
-        private void FillDataTable(string myQuery, DataTable dt)
-        {
-            myConnection.Open();
-            SqlDataAdapter da = new SqlDataAdapter(myQuery, myConnection);
-            da.Fill(dt);
-            myConnection.Close();
-        }
-
-        // The exitcode from the ExecuteNonQuery method is returned to the calling method in AddStudentControl.
-        public int addStudentToDB(string studentID, string firstname, string lastname, string gender,
-            string streetadress, string zidcode, string city, string country, string birthdate, string Studenttype)
-        {
-            myConnection.Open();
-            SqlDataAdapter da = new SqlDataAdapter("addStudent_p", myConnection);
-            da.SelectCommand.CommandType = CommandType.StoredProcedure;
-            da.SelectCommand.Parameters.Add("StudentID", SqlDbType.NChar, (10)).Value = studentID;
-            da.SelectCommand.Parameters.Add("FirstName", SqlDbType.NVarChar, (50)).Value = firstname;
-            da.SelectCommand.Parameters.Add("LastName", SqlDbType.NVarChar, (50)).Value = lastname;
-            da.SelectCommand.Parameters.Add("Gender", SqlDbType.NVarChar, (6)).Value = gender;
-            da.SelectCommand.Parameters.Add("StreetAdress", SqlDbType.NVarChar, (50)).Value = streetadress;
-            da.SelectCommand.Parameters.Add("ZipCode", SqlDbType.NChar, (10)).Value = zidcode;
-            da.SelectCommand.Parameters.Add("City", SqlDbType.NVarChar, (50)).Value = city;
-            da.SelectCommand.Parameters.Add("Country", SqlDbType.NVarChar, (50)).Value = country;
-            da.SelectCommand.Parameters.Add("Birthdate", SqlDbType.Date).Value = birthdate;
-            da.SelectCommand.Parameters.Add("StudentType", SqlDbType.NVarChar, (20)).Value = Studenttype;
-            int exitCode = da.SelectCommand.ExecuteNonQuery();
-            myConnection.Close();
-
-            return exitCode;
-        }
-
-        // We itterate through each of the phonenumbers and make a call to the stored procedure at each itteration
-        // to insert the phonenumbers (along with their types and corresponding studentID). We return the exitcodes so we can show the user the numbers that was
-        // successfully added, and the numbers that failed to be added.
-        public int[] addStudentPhoneNoToDB(string StudentID, List<string> phoneNumbers, List<string> PhoneTypes)
-        {
-            int[] exitCodes = new int[phoneNumbers.Count];
-
-            myConnection.Open();
-            for (int i = 0; i < phoneNumbers.Count; i++)
-            {
-                SqlDataAdapter da = new SqlDataAdapter("addStudentPhoneNo_p", myConnection);
-                da.SelectCommand.CommandType = CommandType.StoredProcedure;
-                da.SelectCommand.Parameters.Add("StudentID", SqlDbType.NVarChar, (10)).Value = StudentID;
-                da.SelectCommand.Parameters.Add("PhoneType", SqlDbType.NVarChar, (30)).Value = PhoneTypes[i];
-                da.SelectCommand.Parameters.Add("Number", SqlDbType.NVarChar, (30)).Value = phoneNumbers[i];
-                exitCodes[i] = da.SelectCommand.ExecuteNonQuery();
-            }
-            myConnection.Close();
-            return exitCodes;
-        }
-
-        /*
-         --------------------------------------------------------------------------------------------
-         STUB IMPLEMENTATIONS TO BE USED IN LAB 3. 
-         --------------------------------------------------------------------------------------------
-        */
+/*
+ --------------------------------------------------------------------------------------------
+ STUB IMPLEMENTATIONS TO BE USED IN LAB 3. 
+ --------------------------------------------------------------------------------------------
+*/
 
 
         /********************************************************************************************
