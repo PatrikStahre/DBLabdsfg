@@ -57,7 +57,7 @@ namespace DBLabs
 
         public DataTable LoadTypes(string typ)
         {
-            DataTable dt = new DataTable;
+            DataTable dt = new DataTable();
             string LoadStudentDataQuery = $"SELECT * FROM {typ}";
             FillDataTable(LoadStudentDataQuery, dt);
             return dt;
