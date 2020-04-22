@@ -32,20 +32,27 @@ namespace DBLabs
          *              false   Error
          */
 
-        public override bool login(string username, string password)
+ public override bool login(string username, string password)
         {
-            // "Hard coded" the username with its password, this is for time saving purposes.
+            // "Hard coded" the user information for time saving purposes.
             username = "DVA234_2020_G7";
             password = "DVA234_7";
 
             string connectionstring = "Data Source=www4.idt.mdh.se;" + "Initial Catalog=DVA234_2020_G7_db;" + $"User Id={username};" + $"Password={password};";
             myConnection = new SqlConnection(connectionstring);
+            myConnection.Open(); 
+            if (myConnection.State == ConnectionState.Open){
+                MessageBox.Show("Connection succesful");
+                return true;}
 
-            if (myConnection == null)
-                return false;
-
-            return true;
+            else if(myConnection.State == ConnectionState.Closed)
+            {
+                MessageBox.Show("Connection is closed");
+                return false;        
+            }
+            return false;
         }
+        /*
         /*
          --------------------------------------------------------------------------------------------
          IMPLEMENTATION TO BE USED IN LAB 2. 
