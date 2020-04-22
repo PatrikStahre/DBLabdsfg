@@ -85,7 +85,7 @@ namespace DBLabs
             BirthdateDatepicker.Value = BirthdateDatepicker.MaxDate;
             PhoneNumberTextbox.ResetText();
             AddedPhoneNumbers_Readonly.ResetText();
-
+             
             if (clearLog)
                 RegisterStatusTextbox.ResetText();
         }
