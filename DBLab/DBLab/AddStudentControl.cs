@@ -52,11 +52,8 @@ namespace DBLabs
 
             ResetAddStudentControl();
 
-            DataTable studentTypeDB = new DataTable();
-            DataTable phoneTypeDB = new DataTable();
-
-            dbconn.FillDataTable("SELECT * FROM StudentTyp", studentTypeDB);
-            dbconn.FillDataTable("SELECT * FROM ContactTypes", phoneTypeDB);
+            DataTable studentTypeDB = dbconn.LoadStudentTypes();
+            DataTable phoneTypeDB = dbconn.LoadPhoneTypes();
 
             StudentTypeCombobox.DataSource = studentTypeDB;
             PhoneTypeCombobox.DataSource = phoneTypeDB;
@@ -124,13 +121,6 @@ namespace DBLabs
             phoneTypes
             );
 
-            //if (exitCodeStudent == 1)
-            //{
-            //    RegisterStatusTextbox.Text += "1 row updated...";
-            //    RegisterStatusTextbox.AppendText(Environment.NewLine);
-            //    RegisterStatusTextbox.Text += $"The new student: {StudentidTextbox.Text} ({FirstnameTextbox.Text} {LastnameTextbox.Text}) was successfully added to the database!";
-            //    RegisterStatusTextbox.AppendText(Environment.NewLine);
-            //}
 
             if (exitCodeStudent == -1)
             {

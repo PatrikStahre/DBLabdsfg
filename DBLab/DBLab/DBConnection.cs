@@ -55,6 +55,13 @@ namespace DBLabs
         // Here you need to implement your own methods that call the stored procedures 
         // addStudent and addStudentPhoneNo
 
+        public DataTable LoadStudentTypes()
+        {
+            DataTable dt = new DataTable;
+            string LoadStudentDataQuery = "SELECT * FROM StudentTyp";
+            FillDataTable(LoadStudentDataQuery, dt);
+            return dt;
+        }
         public void FillDataTable(string myQuery, DataTable dt)
         {
             myConnection.Open();
