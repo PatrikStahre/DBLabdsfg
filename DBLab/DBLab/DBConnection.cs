@@ -34,7 +34,7 @@ namespace DBLabs
 
         public override bool login(string username, string password)
         {
-            //to lazy to enter login info every time...
+            // "Hard coded" the username with its password, this is for time saving purposes.
             username = "DVA234_2020_G7";
             password = "DVA234_7";
 
