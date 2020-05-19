@@ -32,27 +32,30 @@ namespace DBLabs
          *              false   Error
          */
 
- public override bool login(string username, string password)
+        public override bool login(string username, string password)
         {
-            // "Hard coded" the user information for time saving purposes.
+            //We hardcode the login info so we dont have to enter this info everytime we run the program.
             username = "DVA234_2020_G7";
             password = "DVA234_7";
 
             string connectionstring = "Data Source=www4.idt.mdh.se;" + "Initial Catalog=DVA234_2020_G7_db;" + $"User Id={username};" + $"Password={password};";
             myConnection = new SqlConnection(connectionstring);
-            myConnection.Open(); 
-            if (myConnection.State == ConnectionState.Open){
-                MessageBox.Show("Connection succesful");
-                return true;}
 
-            else if(myConnection.State == ConnectionState.Closed)
+            // We try to open the connection. If the state of the connection is "open" we close it and return true. Otherwise we return false.
+            myConnection.Open();
+
+            if (myConnection.State == ConnectionState.Closed)
+                return false;
+
+            else if (myConnection.State == ConnectionState.Open)
             {
-                MessageBox.Show("Connection is closed");
-                return false;        
+                myConnection.Close();
+                return true;
             }
-            return false;
+
+            else // something has gone wrong that we didnt check for...
+                return false;
         }
-        /*
         /*
          --------------------------------------------------------------------------------------------
          IMPLEMENTATION TO BE USED IN LAB 2. 
@@ -62,8 +65,18 @@ namespace DBLabs
         // Here you need to implement your own methods that call the stored procedures 
         // addStudent and addStudentPhoneNo
 
+        // We declare and return the datatable to the method LoadAddStudentControl in AddStudentControl.cs that use the datatables to
+        // populate the comboboxes. 
+        public DataTable LoadTypes(string typ)
+        {
+            DataTable dt = new DataTable();
+            string query = $"SELECT * FROM {typ}";
+            FillDataTable(query, dt);
+            return dt;
+        }
 
-        public void FillDataTable(string myQuery, DataTable dt)
+        // Helper method that simply fills the datatables with data it recieves after a query to the database. 
+        private void FillDataTable(string myQuery, DataTable dt)
         {
             myConnection.Open();
             SqlDataAdapter da = new SqlDataAdapter(myQuery, myConnection);
@@ -71,9 +84,9 @@ namespace DBLabs
             myConnection.Close();
         }
 
-        //Implement later...
+        // The exitcode from the ExecuteNonQuery method is returned to the calling method in AddStudentControl.
         public int addStudentToDB(string studentID, string firstname, string lastname, string gender,
-            string streetadress, string zidcode, string city, string country, string birthdate, string Studenttype)
+            string streetadress, string zidcode, string city, string country, string birthdate, string Studenttype, string program, string admissionYear)
         {
             myConnection.Open();
             SqlDataAdapter da = new SqlDataAdapter("addStudent_p", myConnection);
@@ -88,12 +101,18 @@ namespace DBLabs
             da.SelectCommand.Parameters.Add("Country", SqlDbType.NVarChar, (50)).Value = country;
             da.SelectCommand.Parameters.Add("Birthdate", SqlDbType.Date).Value = birthdate;
             da.SelectCommand.Parameters.Add("StudentType", SqlDbType.NVarChar, (20)).Value = Studenttype;
+            da.SelectCommand.Parameters.Add("Program", SqlDbType.NVarChar, (30)).Value = program;
+            da.SelectCommand.Parameters.Add("ProgramYear", SqlDbType.NVarChar, (30)).Value = admissionYear;
+
             int exitCode = da.SelectCommand.ExecuteNonQuery();
             myConnection.Close();
 
             return exitCode;
         }
 
+        // We itterate through each of the phonenumbers and make a call to the stored procedure at each itteration
+        // to insert the phonenumbers (along with their types and corresponding studentID). We return the exitcodes so we can show the user the numbers that was
+        // successfully added, and the numbers that failed to be added.
         public int[] addStudentPhoneNoToDB(string StudentID, List<string> phoneNumbers, List<string> PhoneTypes)
         {
             int[] exitCodes = new int[phoneNumbers.Count];
@@ -258,7 +277,7 @@ namespace DBLabs
             dt.Columns.Add("program");
             dt.Columns.Add("PgmStartYear");
             dt.Columns.Add("credits");
-            dt.Rows.Add("ssn11001", "Stud", "Studman", "Male", "StudentRoad 1", "773 33", "1985-11-20 00:00:00", "Program Student", "Västerås", "Sweden", "Datavetenskapliga programmet", 2011, 15);
+            dt.Rows.Add("ssn11001", "Studss", "Studman", "Male", "StudentRoad 1", "773 33", "1985-11-20 00:00:00", "Program Student", "Västerås", "Sweden", "Datavetenskapliga programmet", 2011, 15);
             return dt;
         }
 
