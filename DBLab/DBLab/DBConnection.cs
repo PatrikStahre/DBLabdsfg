@@ -316,25 +316,6 @@ namespace DBLabs
          */
         public override DataTable getStudentData() 
         {
-            //Dummy code - Remove!
-            //Please note that you do not use DataTables like this at all when you are using a database!!
-            //DataTable dt = new DataTable();
-            //dt.Columns.Add("StudentID");
-            //dt.Columns.Add("FirstName");
-            //dt.Columns.Add("LastName");
-            //dt.Columns.Add("Gender");
-            //dt.Columns.Add("Streetadress");
-            //dt.Columns.Add("ZipCode");
-            //dt.Columns.Add("Birthdate");
-            //dt.Columns.Add("StudentType");
-            //dt.Columns.Add("City");
-            //dt.Columns.Add("Country");
-            //dt.Columns.Add("program");
-            //dt.Columns.Add("PgmStartYear");
-            //dt.Columns.Add("credits");
-            //dt.Rows.Add("ssn11001", "Studss", "Studman", "Male", "StudentRoad 1", "773 33", "1985-11-20 00:00:00", "Program Student", "Västerås", "Sweden", "Datavetenskapliga programmet", 2011, 15);
-            //return dt;
-
             myConnection.Open();
 
             string myQuery = "SELECT * FROM STUDENTLIST";
@@ -360,14 +341,6 @@ namespace DBLabs
          */
         public override DataTable getStaff() 
         {
-            //Dummy code -Remove!
-            //Please note that you do not use DataTables like this at all when you are using a database!!
-            //DataTable dt = new DataTable();
-            //dt.Columns.Add("pnr");
-            //dt.Columns.Add("fullname");
-            //dt.Rows.Add("111111-1111", "Test Testson");
-            //return dt;
-
             myConnection.Open();
 
             string myQuery = "SELECT * FROM STAFFLIST";
@@ -391,16 +364,8 @@ namespace DBLabs
          *                  StudentID       VARCHAR     StudentID for all students
          *                  fullname        VARCHAR     Full name (First name and Last Name) of the students.
          */
-        public override DataTable getLabasses() // DONE!!!!!!!!!!!!
+        public override DataTable getLabasses()
         {
-            //Dummy code - Remove!
-            //Please note that you do not use DataTables like this at all when you are using a database!!
-            //DataTable dt = new DataTable();
-            //dt.Columns.Add("StudentID");
-            //dt.Columns.Add("fullname");
-            //dt.Rows.Add("ssn11001", "Stud Studman");
-            //return dt;
-
             myConnection.Open();
 
             string myQuery = "SELECT * FROM LABASSISTANTSLIST";
@@ -426,18 +391,8 @@ namespace DBLabs
          *                  credits         FLOAT       Credits of the course
          *                  courseresponsible VARCHAR   "Personnummer" for the course responsible teacher
          */
-        public override DataTable getCourses() //DONE!!!!!
+        public override DataTable getCourses()
         {
-            //Dummy code - Remove!
-            //Please note that you do not use DataTables like this at all when you are using a database!!
-            //DataTable dt = new DataTable();
-            //dt.Columns.Add("coursecode");
-            //dt.Columns.Add("name");
-            //dt.Columns.Add("credits");
-            //dt.Columns.Add("courseresponsible");
-            //dt.Rows.Add("DVA234", "Databaser", 7.5, "111111-1111");
-            //return dt;
-
             myConnection.Open();
 
             string myQuery = "SELECT * FROM COURSELIST";
@@ -460,11 +415,8 @@ namespace DBLabs
          * Return value:
          *              integer     The cost in currency (SEK)
          */
-        public override int getCourseCost(string cc, int year, int period) //DONE!!!!!!!!
+        public override int getCourseCost(string cc, int year, int period)
         {
-            //Dummy code - Remove!
-            //return 10000;
-
             myConnection.Open();
             SqlCommand cmd = new SqlCommand("getCourseCost", myConnection);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -476,8 +428,6 @@ namespace DBLabs
             myConnection.Close();
 
             int returnValue = (int)cmd.Parameters["@ReturnValue"].Value;
-
-            MessageBox.Show(returnValue.ToString());
 
             return returnValue;
 
@@ -495,12 +445,8 @@ namespace DBLabs
          *              DataTable with the relevant information
          *                  The table should show name, number of hours, the Task in the course and the hourly salary
          */
-        public override DataTable getCourseStaffing(string cc, string year, string period) // DONE!!!!!!!
+        public override DataTable getCourseStaffing(string cc, string year, string period) 
         {
-            //Dummy code - Remove!
-            //DataTable dt = new DataTable();
-            //return dt;
-
             myConnection.Open();
             string myQuery = $"exec getCourseStaffing '{cc}','{year}','{period}'";
             SqlDataAdapter da = new SqlDataAdapter(myQuery, myConnection);
@@ -521,12 +467,8 @@ namespace DBLabs
          *              DataTable with the relevant information
          *                  See lab-instructions for more information about this DataTable
          */
-        public override DataTable getStudentRecord(string studId) // DONE !!!!!!!!!
+        public override DataTable getStudentRecord(string studId)
         {
-            //Dummy code - Remove!
-            //DataTable dt = new DataTable();
-            //return dt;
-
             myConnection.Open();
             SqlDataAdapter da = new SqlDataAdapter($"exec getStudentRecord '{studId}'", myConnection);
             DataTable dt = new DataTable();
@@ -546,16 +488,8 @@ namespace DBLabs
          *              DataTable with the relevant information
          *                  The Table should show at least coursecode and course name for all prerequisite courses
          */
-        public override DataTable getPreReqs(string cc) // DONE!!!
+        public override DataTable getPreReqs(string cc) 
         {
-            //Dummy code - Remove!
-            //Please note that you do not use DataTables like this at all when you are using a database!!
-            //DataTable dt = new DataTable();
-            //dt.Columns.Add("Course Code");
-            //dt.Columns.Add("Course Name");
-            //dt.Rows.Add("DVA111", "C# course");
-            //return dt;
-
             myConnection.Open();
 
             string myQuery = $"exec getPreReqs '{cc}'";
@@ -581,17 +515,8 @@ namespace DBLabs
          *                  period          INTEGER     The period of the course instance
          *                  instance        VARCHAR     The "Display text" for the instance, e.g. year(period) or similar
          */
-        public override DataTable getInstances(string cc) // DONE!!!!!!
+        public override DataTable getInstances(string cc) 
         {
-            //Dummy code - Remove!
-            //Please note that you do not use DataTables like this at all when you are using a database!!
-            //DataTable dt = new DataTable();
-            //dt.Columns.Add("year");
-            //dt.Columns.Add("period");
-            //dt.Columns.Add("instance");
-            //dt.Rows.Add(2012, 4, "2012 p4");
-            //return dt;
-
             myConnection.Open();
             string myQuery = $"exec getInstances '{cc}'";
             SqlDataAdapter da = new SqlDataAdapter(myQuery, myConnection);
@@ -613,17 +538,8 @@ namespace DBLabs
         *                  Type            VARCHAR     The type of telephone number (e.g., Home, Work, Cell etc.)
         *                  Number          VARCHAR     The telephone number
         */
-        public override DataTable getStudentPhoneNumbers(string studId) // DONE!!!!!
+        public override DataTable getStudentPhoneNumbers(string studId)
         {
-            //Dummy code - Remove!
-            //Please note that you do not use DataTables like this at all when you are using a database!!
-            //    DataTable dt = new DataTable();
-            //    dt.Columns.Add("Type");
-            //    dt.Columns.Add("Number");
-            //    dt.Rows.Add("Home", "021-121212");
-            //    return dt;
-
-
             myConnection.Open();
             SqlDataAdapter da = new SqlDataAdapter($"exec getStudentPhoneNumbers '{studId}'", myConnection);
             DataTable dt = new DataTable();
