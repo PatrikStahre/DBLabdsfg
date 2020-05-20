@@ -153,7 +153,7 @@ namespace DBLabs
          *              1           Prerequisite added
          *              Any other   Error
          */
-        public override int addPreReq(string cc, string preReqcc) // DONE!!!
+        public override int addPreReq(string cc, string preReqcc)
         {
             myConnection.Open();
             SqlCommand cmd = new SqlCommand("spAddPreReq", myConnection);
@@ -178,7 +178,7 @@ namespace DBLabs
          *              1           Course instance added
          *              Any other   Error
          */
-        public override int addInstance(string cc, int year, int period) // DONE!!!
+        public override int addInstance(string cc, int year, int period)
         {
             myConnection.Open();
             SqlCommand cmd = new SqlCommand("addInstance", myConnection);
@@ -209,7 +209,7 @@ namespace DBLabs
          *              1           Teacher staffing added
          *              Any other   Error
          */
-        public override int addStaff(string pnr, string cc, int year, int period, int hours) // DONE!!!
+        public override int addStaff(string pnr, string cc, int year, int period, int hours) 
         {
             myConnection.Open();
             SqlCommand cmd = new SqlCommand("spAddStaff", myConnection);
@@ -221,8 +221,6 @@ namespace DBLabs
             cmd.Parameters.AddWithValue("@Hours", hours);
             int exitCode = cmd.ExecuteNonQuery();
             myConnection.Close();
-
-            MessageBox.Show(exitCode.ToString());
 
             return exitCode;
         }
@@ -241,7 +239,7 @@ namespace DBLabs
          *              1           Labassistant staffing added
          *              Any other   Error
          */
-        public override int addLabass(string studid, string cc, int year, int period, int hours, int salary) // DONE!!!
+        public override int addLabass(string studid, string cc, int year, int period, int hours, int salary) 
         {
             myConnection.Open();
             SqlCommand cmd = new SqlCommand("spAddLabass", myConnection);
@@ -254,6 +252,8 @@ namespace DBLabs
             cmd.Parameters.AddWithValue("@Salary", salary);
             int exitCode = cmd.ExecuteNonQuery();
             myConnection.Close();
+
+            MessageBox.Show(exitCode.ToString());
 
             return exitCode;
         }
@@ -272,7 +272,7 @@ namespace DBLabs
          *              1           Course added
          *              Any other   Error
          */
-        public override int addCourse(string cc, string name, double credits, string responsible)  // DONE!!!
+        public override int addCourse(string cc, string name, double credits, string responsible) 
         {
             myConnection.Open();
             SqlCommand cmd = new SqlCommand("addCourse", myConnection);
@@ -314,7 +314,7 @@ namespace DBLabs
          *                  PgmStartYear    INTEGER     Year the student enrolled to the program
          *                  credits         FLOAT       The number of credits that the student has completed
          */
-        public override DataTable getStudentData() // DONE!!!!!!
+        public override DataTable getStudentData() 
         {
             //Dummy code - Remove!
             //Please note that you do not use DataTables like this at all when you are using a database!!
@@ -358,7 +358,7 @@ namespace DBLabs
          *                  pnr             VARCHAR     "Personnummer" for the staff
          *                  fullname        VARCHAR     Full name (First name and Last Name) of the staff.
          */
-        public override DataTable getStaff() //DONE!!!!!!!
+        public override DataTable getStaff() 
         {
             //Dummy code -Remove!
             //Please note that you do not use DataTables like this at all when you are using a database!!
@@ -477,6 +477,8 @@ namespace DBLabs
 
             int returnValue = (int)cmd.Parameters["@ReturnValue"].Value;
 
+            MessageBox.Show(returnValue.ToString());
+
             return returnValue;
 
         }
@@ -507,7 +509,6 @@ namespace DBLabs
             myConnection.Close();
 
             return dt;
-
         }
 
         /*
