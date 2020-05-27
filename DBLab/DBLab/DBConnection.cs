@@ -532,14 +532,7 @@ namespace DBLabs
             //dt.Rows.Add("All will be revealed in lab 4.. :)");
             //return dt;
 
-            myConnection.Open();
-            string myQuery = $"exec getStaffingGrid_p '{year}'";
-            SqlDataAdapter da = new SqlDataAdapter(myQuery, myConnection);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            myConnection.Close();
-
-            return dt;
+            return LoadDataTable($"exec getStaffingGrid_p '{year}'");
         }
     }
 }
