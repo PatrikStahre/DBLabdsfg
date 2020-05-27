@@ -54,9 +54,9 @@ namespace DBLabs
             ResetAddStudentControl();
             // We call a method in the DBConnection.cs class so that DBConnection is responsible for all
             // contact with the database.
-            DataTable studentTypeDB = dbconn.LoadTypes("StudentTyp");
-            DataTable phoneTypeDB = dbconn.LoadTypes("TelefonNoTyp");
-            DataTable programTypeDB = dbconn.LoadTypes("Program");
+            DataTable studentTypeDB = dbconn.LoadDataTable("SELECT * FROM StudentTyp");
+            DataTable phoneTypeDB = dbconn.LoadDataTable("SELECT * FROM TelefonNoTyp");
+            DataTable programTypeDB = dbconn.LoadDataTable("SELECT * FROM Program");
            
 
             StudentTypeCombobox.DataSource = studentTypeDB;

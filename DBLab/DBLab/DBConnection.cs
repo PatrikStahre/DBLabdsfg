@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data.SqlClient;
+﻿using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace DBLabs
@@ -67,11 +64,11 @@ namespace DBLabs
 
         // We declare and return the datatable to the method LoadAddStudentControl in AddStudentControl.cs that use the datatables to
         // populate the comboboxes. 
-        public DataTable LoadTypes(string typ)
+        public DataTable LoadDataTable(string quary)
         {
             DataTable dt = new DataTable();
-            string query = $"SELECT * FROM {typ}";
-            FillDataTable(query, dt);
+            string q = quary;
+            FillDataTable(q, dt);
             return dt;
         }
 
@@ -316,16 +313,7 @@ namespace DBLabs
          */
         public override DataTable getStudentData() 
         {
-            myConnection.Open();
-
-            string myQuery = "SELECT * FROM STUDENTLIST";
-            SqlDataAdapter da = new SqlDataAdapter(myQuery, myConnection);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
-            myConnection.Close();
-
-            return dt;
+            return LoadDataTable("SELECT * FROM STUDENTLIST");
         }
 
         /*
@@ -341,16 +329,7 @@ namespace DBLabs
          */
         public override DataTable getStaff() 
         {
-            myConnection.Open();
-
-            string myQuery = "SELECT * FROM STAFFLIST";
-            SqlDataAdapter da = new SqlDataAdapter(myQuery, myConnection);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
-            myConnection.Close();
-
-            return dt;
+            return LoadDataTable("SELECT * FROM STAFFLIST");
         }
 
         /*
@@ -366,16 +345,7 @@ namespace DBLabs
          */
         public override DataTable getLabasses()
         {
-            myConnection.Open();
-
-            string myQuery = "SELECT * FROM LABASSISTANTSLIST";
-            SqlDataAdapter da = new SqlDataAdapter(myQuery, myConnection);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
-            myConnection.Close();
-
-            return dt;
+            return LoadDataTable("SELECT * FROM LABASSISTANTSLIST");
         }
 
         /*
@@ -393,16 +363,7 @@ namespace DBLabs
          */
         public override DataTable getCourses()
         {
-            myConnection.Open();
-
-            string myQuery = "SELECT * FROM COURSELIST";
-            SqlDataAdapter da = new SqlDataAdapter(myQuery, myConnection);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
-            myConnection.Close();
-
-            return dt;
+            return LoadDataTable("SELECT * FROM COURSELIST");
         }
         /*
          * Returns the salary costs for a course instance based on the teacher and lab assistent staffing.
@@ -447,14 +408,7 @@ namespace DBLabs
          */
         public override DataTable getCourseStaffing(string cc, string year, string period) 
         {
-            myConnection.Open();
-            string myQuery = $"exec getCourseStaffing '{cc}','{year}','{period}'";
-            SqlDataAdapter da = new SqlDataAdapter(myQuery, myConnection);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            myConnection.Close();
-
-            return dt;
+            return LoadDataTable($"exec getCourseStaffing '{cc}','{year}','{period}'");
         }
 
         /*
@@ -469,13 +423,7 @@ namespace DBLabs
          */
         public override DataTable getStudentRecord(string studId)
         {
-            myConnection.Open();
-            SqlDataAdapter da = new SqlDataAdapter($"exec getStudentRecord '{studId}'", myConnection);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            myConnection.Close();
-
-            return dt;
+            return LoadDataTable($"exec getStudentRecord '{studId}'");
         }
 
         /*
@@ -490,16 +438,7 @@ namespace DBLabs
          */
         public override DataTable getPreReqs(string cc) 
         {
-            myConnection.Open();
-
-            string myQuery = $"exec getPreReqs '{cc}'";
-            SqlDataAdapter da = new SqlDataAdapter(myQuery, myConnection);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
-            myConnection.Close();
-
-            return dt;
+            return LoadDataTable($"exec getPreReqs '{cc}'");
         }
 
 
@@ -517,14 +456,7 @@ namespace DBLabs
          */
         public override DataTable getInstances(string cc) 
         {
-            myConnection.Open();
-            string myQuery = $"exec getInstances '{cc}'";
-            SqlDataAdapter da = new SqlDataAdapter(myQuery, myConnection);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            myConnection.Close();
-
-            return dt;
+            return LoadDataTable($"exec getInstances '{cc}'");
         }
 
         /*
@@ -540,13 +472,7 @@ namespace DBLabs
         */
         public override DataTable getStudentPhoneNumbers(string studId)
         {
-            myConnection.Open();
-            SqlDataAdapter da = new SqlDataAdapter($"exec getStudentPhoneNumbers '{studId}'", myConnection);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            myConnection.Close();
-
-            return dt;
+            return LoadDataTable($"exec getStudentPhoneNumbers '{studId}'");
         }
 
         /*
@@ -570,9 +496,20 @@ namespace DBLabs
         {
             //Dummy code - Remove!
             //Please note that you do not use DataTables like this at all when you are using a database!!
+            //DataTable dt = new DataTable();
+            //dt.Columns.Add("Year");
+            //dt.Rows.Add(2000);
+            //return dt;
+
+            myConnection.Open();
+
+            string myQuery = "SELECT * FROM YEARS_WITH_COURSEINSTANCES";
+            SqlDataAdapter da = new SqlDataAdapter(myQuery, myConnection);
             DataTable dt = new DataTable();
-            dt.Columns.Add("Year");
-            dt.Rows.Add(2000);
+            da.Fill(dt);
+
+            myConnection.Close();
+
             return dt;
         }
 
@@ -590,9 +527,18 @@ namespace DBLabs
         {
             //Dummy code - Remove!
             //Please note that you do not use DataTables like this at all when you are using a database!!
+            //DataTable dt = new DataTable();
+            //dt.Columns.Add("StaffingGrid");
+            //dt.Rows.Add("All will be revealed in lab 4.. :)");
+            //return dt;
+
+            myConnection.Open();
+            string myQuery = $"exec getStaffingGrid_p '{year}'";
+            SqlDataAdapter da = new SqlDataAdapter(myQuery, myConnection);
             DataTable dt = new DataTable();
-            dt.Columns.Add("StaffingGrid");
-            dt.Rows.Add("All will be revealed in lab 4.. :)");
+            da.Fill(dt);
+            myConnection.Close();
+
             return dt;
         }
     }
